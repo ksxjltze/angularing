@@ -8,7 +8,8 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 })
 export class HousingService {
   // db: DatabaseClient = new DatabaseClient();
-  url = 'http://localhost:3000/locations';
+  // url = 'http://localhost:3000/locations';
+  url = 'https://quick-and-dirty-restful-api.vercel.app/locations'
 
   async getAllHousingLocations(): Promise<HousingLocation[]> {
     const data = await fetch(this.url);
