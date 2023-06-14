@@ -1,120 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HousingLocation } from './housinglocation';
+import { MongoClient, ServerApiVersion } from 'mongodb';
+// const { MongoClient, ServerApiVersion } = require('mongodb');
 
 @Injectable({
   providedIn: 'root'
 })
 export class HousingService {
-  housingLocationList: HousingLocation[] = 
-  [
-    {
-      id: 0,
-      name: 'Acme Fresh Start Housing',
-      city: 'Chicago',
-      state: 'IL',
-      photo: '/assets/boii.png',
-      availableUnits: 4,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 1,
-      name: 'A113 Transitional Housing',
-      city: 'Santa Monica',
-      state: 'CA',
-      photo: '/assets/boii.png',
-      availableUnits: 0,
-      wifi: false,
-      laundry: true
-    },
-    {
-      id: 2,
-      name: 'Warm Beds Housing Support',
-      city: 'Juneau',
-      state: 'AK',
-      photo: '/assets/boii.png',
-      availableUnits: 1,
-      wifi: false,
-      laundry: false
-    },
-    {
-      id: 3,
-      name: 'Homesteady Housing',
-      city: 'Chicago',
-      state: 'IL',
-      photo: '/assets/boii.png',
-      availableUnits: 1,
-      wifi: true,
-      laundry: false
-    },
-    {
-      id: 4,
-      name: 'Happy Homes Group',
-      city: 'Gary',
-      state: 'IN',
-      photo: '/assets/boii.png',
-      availableUnits: 1,
-      wifi: true,
-      laundry: false
-    },
-    {
-      id: 5,
-      name: 'Hopeful Apartment Group',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/boii.png',
-      availableUnits: 2,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 6,
-      name: 'Seriously Safe Towns',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/boii.png',
-      availableUnits: 5,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 7,
-      name: 'Hopeful Housing Solutions',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/boii.png',
-      availableUnits: 2,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 8,
-      name: 'Seriously Safe Towns',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/boii.png',
-      availableUnits: 10,
-      wifi: false,
-      laundry: false
-    },
-    {
-      id: 9,
-      name: 'Capital Safe Towns',
-      city: 'Portland',
-      state: 'OR',
-      photo: '/assets/boii.png',
-      availableUnits: 6,
-      wifi: true,
-      laundry: true
-    }
-  ];
+  // db: DatabaseClient = new DatabaseClient();
+  url = 'http://localhost:3000/locations';
 
-  getAllHousingLocations(): HousingLocation[] {
-    return this.housingLocationList;
+  async getAllHousingLocations(): Promise<HousingLocation[]> {
+    const data = await fetch(this.url);
+    // await this.db.run();
+    return await data.json() ?? [];
   }
   
-  getHousingLocationById(id: number): HousingLocation | undefined {
-    return this.housingLocationList.find(housingLocation => housingLocation.id === id);
+  async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
+    const data = await fetch(`${this.url}/${id}`);
+    console.log(data);
+    return await data.json() ?? {};
   }
 
   submitApplication(firstName: string, lastName: string, email: string) {
@@ -123,3 +28,30 @@ export class HousingService {
 
   constructor() { }
 }
+
+// class DatabaseClient{
+//   uri = "mongodb+srv://angularman:PiEMNzYCg6jLDGQQ@angularing.nf72egr.mongodb.net/?retryWrites=true&w=majority";
+  
+//   // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+//   client = new MongoClient(this.uri, {
+//     serverApi: {
+//       version: ServerApiVersion.v1,
+//       strict: true,
+//       deprecationErrors: true,
+//     }
+//   });
+  
+//   async run() {
+//     try {
+//       // Connect the client to the server	(optional starting in v4.7)
+//       await this.client.connect();
+//       // Send a ping to confirm a successful connection
+//       await this.client.db("admin").command({ ping: 1 });
+//       console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//     } finally {
+//       // Ensures that the client will close when you finish/error
+//       await this.client.close();
+//     }
+//   }
+
+// }
