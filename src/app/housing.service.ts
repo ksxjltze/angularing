@@ -6,7 +6,8 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
   providedIn: 'root'
 })
 export class HousingService {
-  url = 'https://quick-and-dirty-restful-api.vercel.app/locations'
+  // url = 'https://quick-and-dirty-restful-api.vercel.app/locations'
+  url = 'https://oyster-app-k3g3w.ondigitalocean.app/locations'
 
   async getAllHousingLocations(): Promise<HousingLocation[]> {
     const data = await fetch(this.url);

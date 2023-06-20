@@ -42,7 +42,7 @@ button {
 
 #filter-types {
   margin-bottom: 0.5em;
-  width: 10%;
+  width: 10em;
 
   border: solid 1px var(--primary-color);
   padding: 10px;
@@ -55,6 +55,5 @@ button {
 
   > #filter-types-select{
     float: right;
-    width: 40%;
   }
 }
