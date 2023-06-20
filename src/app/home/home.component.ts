@@ -51,7 +51,11 @@ export class HomeComponent {
 
   constructor() {
     this.housingService.getAllHousingLocations()
-      .then((housingLocationList: HousingLocation[]) => {
+      .subscribe((housingLocationList: HousingLocation[]) => {
+        housingLocationList.forEach(element => {
+          // @ts-ignore: Hack to get the id from the href
+          element.id = element._links.self.href.split("/").pop();
+        });
         this.housingLocationList = housingLocationList;
         this.filteredLocationList = housingLocationList;
       });

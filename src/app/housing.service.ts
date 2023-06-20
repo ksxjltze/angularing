@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HousingLocation } from './housinglocation';
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +12,26 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 export class HousingService {
   // url = 'https://quick-and-dirty-restful-api.vercel.app/locations'
   url = 'https://oyster-app-k3g3w.ondigitalocean.app/locations'
+  // url = 'http://localhost:8080/locations'
 
-  async getAllHousingLocations(): Promise<HousingLocation[]> {
-    const data = await fetch(this.url);
-    return await data.json() ?? [];
+  getAllHousingLocations(): Observable<HousingLocation[]> {
+    return this.http.get<HousingLocation[]>(this.url).pipe(
+      map((result:any)=>{
+        return result._embedded.locations;
+     }));
+
   }
   
-  async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
-    const data = await fetch(`${this.url}/${id}`);
-    console.log(data);
-    return await data.json() ?? {};
+  getHousingLocationById(id: number): Observable<HousingLocation> {
+    return this.http.get<HousingLocation>(`${this.url}/${id}`).pipe(
+      map((result:any)=>{
+        return result;
+     }));
   }
 
   submitApplication(firstName: string, lastName: string, email: string) {
     console.log(`Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`);
   }
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 }
