@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HousingLocation } from './housinglocation';
+import { HousingLocation } from '../models/housinglocation';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
