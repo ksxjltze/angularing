@@ -1,0 +1,11 @@
+section{
+    padding: 1em;
+    border-radius: 8px;
+    border: solid 1px var(--primary-color);
+    background-color: aliceblue;
+    color: #1a237e
+}
+
+.dspNoteList-heading{
+    margin-bottom: 1em;
+}

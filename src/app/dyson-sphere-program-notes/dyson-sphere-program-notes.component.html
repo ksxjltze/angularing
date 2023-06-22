@@ -1,4 +1,7 @@
-<app-dsp-note
-    *ngFor="let dspNote of dspNoteList"
-    [dspNote]="dspNote">
-</app-dsp-note>
+<section class="dspNoteList">
+    <h2 class="dspNoteList-heading">Dyson Sphere Program Notes</h2>
+    <app-dsp-note
+        *ngFor="let dspNote of dspNoteList"
+        [dspNote]="dspNote">
+    </app-dsp-note>
+</section>
