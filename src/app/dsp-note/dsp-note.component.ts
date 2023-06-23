@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DspNote } from '../models/dsp-note';
+import { DSPNote } from '../models/dsp-note';
 
 @Component({
   selector: 'app-dsp-note',
@@ -8,5 +8,5 @@ import { DspNote } from '../models/dsp-note';
   styleUrls: ['./dsp-note.component.css']
 })
 export class DspNoteComponent {
-  @Input() dspNote!: DspNote
+  @Input() dspNote!: DSPNote
 }

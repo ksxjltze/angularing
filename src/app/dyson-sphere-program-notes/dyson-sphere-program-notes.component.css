@@ -6,13 +6,13 @@ section{
     color: #1a237e
 }
 
-.createDspNote{
+.create-dsp-note{
     padding: 0.5em;
     width: fit-content;
     background-color: #e6f7ff;
 }
 
-.createDspNote:hover{
+.create-dsp-note:hover{
     cursor: pointer;
     background-color: #1a237e;
     color: white;
