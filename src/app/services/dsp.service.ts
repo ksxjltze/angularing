@@ -9,9 +9,8 @@ import { DSPSystem } from '../models/dsp-system';
   providedIn: 'root'
 })
 export class DspService {
-  // url = 'https://oyster-app-k3g3w.ondigitalocean.app/dspnotes'
-
-  root = 'http://localhost:8080/'
+  root = "https://oyster-app-k3g3w.ondigitalocean.app/"
+  // root = 'http://localhost:8080/'
   url = this.root +'dspnotes'
   systemsUrl = this.root + 'dspsystems'
 
