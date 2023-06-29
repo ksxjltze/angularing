@@ -35,11 +35,20 @@ export class DspService {
   getDSPSystem(url: string) : Observable<DSPSystem>{
     return this.http.get<DSPSystem>(url);
   }
+
+  handleError(error: HttpErrorResponse): ObservableInput<any> {
+    console.error('An error occurred:', error.error);
+    return error.error;
+  }
   
   addDSPNote(note: DSPNote): Observable<DSPNote>{
     return this.http.post<DSPNote>(this.url, note)
       .pipe(
-        // catchError(this.handleError)
+        catchError(this.handleError)
       );
+  }
+
+  deleteDSPNoteById(uri: string): Observable<any>{
+    return this.http.delete(uri);
   }
 }

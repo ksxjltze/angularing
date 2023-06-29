@@ -30,23 +30,18 @@ export class DysonSphereProgramNotesComponent {
       this.dspNoteList = dspNoteList;
       console.log(this.dspNoteList);
 
-      this.dspNotes = this.dspNoteList.map((note: DSPNote) => {
-        return {
-          name: note.name,
-          description: note.description,
-          system_name: null
-        }
-      });
-
-      for (let index = 0; index < this.dspNoteList.length; index++) {
-        this.dspNotes[index].system_name = "Loading...";
-        let note : DSPNote = this.dspNoteList[index];
+      this.dspNoteList.forEach((note: DSPNote) => {
 
         this.dspService.getDSPSystem(note._links.system.href)
         .subscribe((system: DSPSystem) => {
-          this.dspNotes[index].system_name = system.name;
+          this.dspNotes.push({
+            name: note.name,
+            description: note.description,
+            system_name: system.name,
+            uri: note._links.self.href
+          });
         });
-      }
+      });
     });
 
     this.dspService.getAllDSPSystems()
@@ -58,8 +53,33 @@ export class DysonSphereProgramNotesComponent {
   }
 
   createDSPNote(){
+    let updateNoteList = (note: DSPNote) => {
+      this.dspService.getDSPSystem(note._links.system.href)
+        .subscribe((system: DSPSystem) => {
+          note.system = system._links.self.href;
+          this.dspNoteList.push(note);
+    
+          this.dspNotes.push({
+            name: note.name,
+            description: note.description,
+            system_name: system.name,
+            uri: note._links.self.href
+          });
+
+      });
+    }
+
     this.dspService
-      .addDSPNote({name: "Testing", description: "123", _links: ""})
-      .subscribe(note => this.dspNoteList.push(note));
+      .addDSPNote({name: "Testing", description: "123", system: this.dspService.systemsUrl + "/649d8f15765a1409b2a5603b"})
+      .subscribe(updateNoteList);
+  }
+
+  deleteDspNote(uri: string){
+    this.dspService.deleteDSPNoteById(uri)
+    .subscribe((result: DSPNote) => {
+      let uri = result._links.self.href;
+      this.dspNoteList = this.dspNoteList.filter((note: DSPNote) => note._links.self.href !== uri);
+      this.dspNotes = this.dspNotes.filter((note: DSPNoteViewModel) => note.uri !== uri);
+    });
   }
 }

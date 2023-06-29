@@ -1,5 +1,8 @@
-<section class="listing">
+<section class="listing border">
     <h2 class="listing-heading">{{ dspNote.name }}</h2>
     <p>Description: {{dspNote.description}}</p>
     <p>System: {{dspNote.system_name}}</p>
+    <section class="listing-options">
+        <button class="listing-delete border" (click)="deleteDspNote()">Delete</button>
+    </section>
 </section>

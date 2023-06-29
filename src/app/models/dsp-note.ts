@@ -1,5 +1,6 @@
 export interface DSPNote {
     name: String,
     description: String,
-    _links: any
+    system: String, //system object URI
+    _links?: any
 }

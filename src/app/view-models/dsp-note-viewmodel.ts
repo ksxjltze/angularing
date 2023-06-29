@@ -2,5 +2,6 @@
 export interface DSPNoteViewModel{
     name: String,
     description: String,
-    system_name: String | null
+    system_name: String,
+    uri: string //lazy lol
 }

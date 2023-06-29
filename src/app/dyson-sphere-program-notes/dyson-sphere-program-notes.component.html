@@ -6,6 +6,7 @@
     <app-dsp-note
         *ngFor="let note of dspNotes"
         [dspNote]="note"
+        (deleteDspNote)="deleteDspNote($event)"
         >
     </app-dsp-note>
 </section>
