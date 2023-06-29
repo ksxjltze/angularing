@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { DSPNote } from '../models/dsp-note';
+import { DspService } from '../services/dsp.service';
+import { DSPSystem } from '../models/dsp-system';
+import { DSPNoteViewModel } from '../view-models/dsp-note-viewmodel';
 
 @Component({
   selector: 'app-dsp-note',
@@ -8,5 +11,14 @@ import { DSPNote } from '../models/dsp-note';
   styleUrls: ['./dsp-note.component.css']
 })
 export class DspNoteComponent {
-  @Input() dspNote!: DSPNote
+  @Input() dspNote!: DSPNoteViewModel
+  dspService: DspService = inject(DspService);
+
+  ngOnInit() {
+    console.log(this.dspNote);    
+  }
+
+  constructor() {
+
+  }
 }

@@ -4,7 +4,8 @@
         New Note
     </section>
     <app-dsp-note
-        *ngFor="let dspNote of dspNoteList"
-        [dspNote]="dspNote">
+        *ngFor="let note of dspNotes"
+        [dspNote]="note"
+        >
     </app-dsp-note>
 </section>

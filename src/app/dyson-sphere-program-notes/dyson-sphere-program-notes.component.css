@@ -2,14 +2,14 @@ section{
     padding: 1em;
     border-radius: 8px;
     border: solid 1px var(--primary-color);
-    background-color: aliceblue;
-    color: #1a237e
+    background-color: rgb(50, 50, 50);
+    color: #ececec
 }
 
 .create-dsp-note{
     padding: 0.5em;
     width: fit-content;
-    background-color: #e6f7ff;
+    background-color: #3b3b3b;
 }
 
 .create-dsp-note:hover{

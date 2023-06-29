@@ -3,13 +3,18 @@ import { Observable, ObservableInput } from 'rxjs';
 import { DSPNote } from '../models/dsp-note';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
+import { DSPSystem } from '../models/dsp-system';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DspService {
   // url = 'https://oyster-app-k3g3w.ondigitalocean.app/dspnotes'
-  url = 'http://localhost:8080/dspnotes'
+
+  root = 'http://localhost:8080/'
+  url = this.root +'dspnotes'
+  systemsUrl = this.root + 'dspsystems'
+
   constructor(private http: HttpClient) { }
 
   getAllDSPNotes() : Observable<DSPNote[]>{
@@ -17,6 +22,18 @@ export class DspService {
       map((result:any) => {
         return result._embedded.dspnotes;
       }));
+  }
+  
+  getAllDSPSystems() : Observable<DSPSystem[]>{
+    return this.http.get<DSPSystem[]>(this.systemsUrl).pipe(
+      map((result : any) => {
+        return result._embedded.dspsystems;
+      })
+    )
+  }
+
+  getDSPSystem(url: string) : Observable<DSPSystem>{
+    return this.http.get<DSPSystem>(url);
   }
   
   addDSPNote(note: DSPNote): Observable<DSPNote>{
