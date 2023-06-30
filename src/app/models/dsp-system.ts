@@ -1,5 +1,5 @@
 export interface DSPSystem {
-    name: String,
-    type: String,
-    _links: any
+    name: string,
+    type: string,
+    _links?: any
 }

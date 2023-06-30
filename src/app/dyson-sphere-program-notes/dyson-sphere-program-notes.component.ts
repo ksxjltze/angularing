@@ -6,7 +6,7 @@ import { DSPNote } from '../models/dsp-note';
 import { DspService } from '../services/dsp.service';
 import { DSPSystem } from '../models/dsp-system';
 import { DSPNoteViewModel } from '../view-models/dsp-note-viewmodel';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dyson-sphere-program-notes',
@@ -27,8 +27,9 @@ export class DysonSphereProgramNotesComponent {
   
   //Form Controls
   dspNoteForm = new FormGroup({
-    dspNoteNameControl: new FormControl(''),
-    dspNoteDescriptionControl: new FormControl(''),
+    dspNoteNameControl: new FormControl('', Validators.required),
+    dspNoteDescriptionControl: new FormControl('', Validators.required),
+    dspNoteSystemControl: new FormControl('', Validators.required),
   });
 
   constructor() {
@@ -56,11 +57,15 @@ export class DysonSphereProgramNotesComponent {
     if (noteDescription === undefined || noteDescription === null || noteDescription === "")
       throw new Error("Note description cannot be empty");
 
+    let noteSystem = this.dspNoteForm.value.dspNoteSystemControl;
+    if (noteSystem === undefined || noteSystem === null || noteSystem === "")
+      throw new Error("Note system cannot be empty");
+
     this.createDSPNote(
       {
         name: noteName!,
         description: noteDescription!,
-        system: this.dspService.systemsUrl + "/649d8f15765a1409b2a5603b"
+        system: noteSystem!
       }
     );
 
