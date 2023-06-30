@@ -1,3 +1,7 @@
+:root{
+    --background-color: #3b3b3b;
+}
+
 section{
     padding: 1em;
     border-radius: 8px;
@@ -6,16 +10,33 @@ section{
     color: #ececec
 }
 
-.create-dsp-note{
-    padding: 0.5em;
-    width: fit-content;
-    background-color: #3b3b3b;
-}
+#dspNoteForm{
+    --input-margin: 0.25em 0 0;
 
-.create-dsp-note:hover{
-    cursor: pointer;
-    background-color: #1a237e;
-    color: white;
+    > input{
+        display: block;
+        background-color: var(--background-color);
+        color: white;
+        border-radius: 8px;
+        border: solid 1px var(--primary-color);
+        padding: 0.25em 0.5em;
+        margin: var(--input-margin);
+    }
+
+    > .create-dsp-note{
+        margin: var(--input-margin);
+        padding: 0.5em;
+        width: fit-content;
+        background-color: var(--background-color);
+        border-radius: 8px;
+        border: solid 1px var(--primary-color);
+        color: white;
+    }
+    
+    > .create-dsp-note:hover{
+        cursor: pointer;
+        background-color: #1a237e;
+    }
 }
 
 .dspNoteList-heading{

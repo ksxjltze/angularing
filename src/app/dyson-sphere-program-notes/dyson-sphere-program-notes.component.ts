@@ -6,11 +6,12 @@ import { DSPNote } from '../models/dsp-note';
 import { DspService } from '../services/dsp.service';
 import { DSPSystem } from '../models/dsp-system';
 import { DSPNoteViewModel } from '../view-models/dsp-note-viewmodel';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dyson-sphere-program-notes',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet, DspNoteComponent],
+  imports: [CommonModule, RouterLink, RouterOutlet, DspNoteComponent, ReactiveFormsModule],
   templateUrl: './dyson-sphere-program-notes.component.html',
   styleUrls: ['./dyson-sphere-program-notes.component.css']
 })
@@ -23,55 +24,77 @@ export class DysonSphereProgramNotesComponent {
 
   //View Data
   dspNotes: DSPNoteViewModel[] = [];
+  
+  //Form Controls
+  dspNoteForm = new FormGroup({
+    dspNoteNameControl: new FormControl(''),
+    dspNoteDescriptionControl: new FormControl(''),
+  });
 
   constructor() {
+  }
+
+  ngOnInit(): void {
     this.dspService.getAllDSPNotes()
-    .subscribe((dspNoteList: DSPNote[]) => {
-      this.dspNoteList = dspNoteList;
-      console.log(this.dspNoteList);
-
-      this.dspNoteList.forEach((note: DSPNote) => {
-
-        this.dspService.getDSPSystem(note._links.system.href)
-        .subscribe((system: DSPSystem) => {
-          this.dspNotes.push({
-            name: note.name,
-            description: note.description,
-            system_name: system.name,
-            uri: note._links.self.href
-          });
-        });
-      });
+      .subscribe((dspNoteList: DSPNote[]) => {
+        this.dspNoteList = dspNoteList;
+        this.updateNoteViewModels();
     });
 
     this.dspService.getAllDSPSystems()
     .subscribe((dspSystemsList: DSPSystem[]) => {
       this.dspSystemsList = dspSystemsList;
-      console.log(this.dspSystemsList);
     });
-
   }
 
-  createDSPNote(){
-    let updateNoteList = (note: DSPNote) => {
+  onSubmit(){
+    let noteName = this.dspNoteForm.value.dspNoteNameControl;
+    if (noteName === undefined || noteName === null || noteName === "") 
+      throw new Error("Note name cannot be empty");
+
+    let noteDescription = this.dspNoteForm.value.dspNoteDescriptionControl;
+    if (noteDescription === undefined || noteDescription === null || noteDescription === "")
+      throw new Error("Note description cannot be empty");
+
+    this.createDSPNote(
+      {
+        name: noteName!,
+        description: noteDescription!,
+        system: this.dspService.systemsUrl + "/649d8f15765a1409b2a5603b"
+      }
+    );
+
+    this.dspNoteForm.reset();
+  }
+
+  createNoteViewModel(note: DSPNote, system: DSPSystem) {
+    this.dspNotes.push({
+      name: note.name,
+      description: note.description,
+      system_name: system.name,
+      uri: note._links.self.href
+    });
+  };
+
+  updateNoteViewModels() {
+    this.dspNoteList.forEach((note: DSPNote) => {
       this.dspService.getDSPSystem(note._links.system.href)
+        .subscribe((system: DSPSystem) => this.createNoteViewModel(note, system));
+    });
+  };
+
+  createDSPNote(note: DSPNote){
+    this.dspService
+      .addDSPNote(note)
+      .subscribe((note: DSPNote)=>{
+        this.dspService.getDSPSystem(note._links.system.href)
         .subscribe((system: DSPSystem) => {
           note.system = system._links.self.href;
           this.dspNoteList.push(note);
-    
-          this.dspNotes.push({
-            name: note.name,
-            description: note.description,
-            system_name: system.name,
-            uri: note._links.self.href
-          });
-
+  
+          this.createNoteViewModel(note, system);
       });
-    }
-
-    this.dspService
-      .addDSPNote({name: "Testing", description: "123", system: this.dspService.systemsUrl + "/649d8f15765a1409b2a5603b"})
-      .subscribe(updateNoteList);
+      });
   }
 
   deleteDspNote(uri: string){

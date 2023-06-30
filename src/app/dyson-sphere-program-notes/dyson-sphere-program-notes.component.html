@@ -1,8 +1,10 @@
 <section class="dspNoteList">
     <h2 class="dspNoteList-heading">Dyson Sphere Program Notes</h2>
-    <section class="create-dsp-note" (click)="createDSPNote()">
-        New Note
-    </section>
+    <form id="dspNoteForm" [formGroup]="dspNoteForm" (ngSubmit)="onSubmit()">
+        <input id="noteName" type="text" placeholder="Note Name" formControlName="dspNoteNameControl"/>
+        <input id="noteDescription" type="text" placeholder="Note Description" formControlName="dspNoteDescriptionControl"/>
+        <button class="create-dsp-note" type="submit" [disabled]="!dspNoteForm.valid">Add</button>
+    </form>
     <app-dsp-note
         *ngFor="let note of dspNotes"
         [dspNote]="note"
