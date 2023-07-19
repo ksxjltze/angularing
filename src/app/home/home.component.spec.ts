@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DspNoteComponent } from './dsp-note.component';
+import { HomeComponent } from './home.component';
 
-describe('DspNoteComponent', () => {
-  let component: DspNoteComponent;
-  let fixture: ComponentFixture<DspNoteComponent>;
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DspNoteComponent ]
+      imports: [ HomeComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DspNoteComponent);
+    fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
