@@ -16,7 +16,7 @@ section{
     height: 100%; 
 
     background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 100%);
-    position: fixed;
+    position: relative;
 }
 
 .greeting{
@@ -35,4 +35,10 @@ section{
     display: flex;
     gap: 10px;
     justify-content: center;
+}
+
+.fgo{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1em;
 }

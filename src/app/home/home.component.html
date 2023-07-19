@@ -9,4 +9,10 @@
             <button (click)="resetCount()" class="primary">RESET</button>
         </div>
     </section>
+
+    <section class="fgo">
+        <div class="fgo-item" *ngFor="let icon of servantIcons">
+            <img src="{{icon}}"/>
+        </div>
+    </section>
 </section>
