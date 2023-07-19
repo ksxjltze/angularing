@@ -15,7 +15,11 @@ export class HomeComponent {
     this.count++;
   }
 
-  clear(){
+  decrementCount(){
+    this.count--;
+  }
+
+  resetCount(){
     this.count = 0;
   }
 }
