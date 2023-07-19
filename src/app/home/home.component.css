@@ -38,7 +38,36 @@ section{
 }
 
 .fgo{
+    width: 80%;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 1em;
+    grid-template-columns: repeat(8, 2fr);
+    gap: 2em;
+
+    align-items: baseline;
+}
+
+.fgo-tooltip-text{
+    text-align: center;
+}
+
+.fgo-servant{
+    position: relative;
+    display: inline-block;
+
+    .fgo-tooltip-text{
+        visibility: hidden;
+    }
+}
+
+.fgo-servant:hover{
+    .fgo-tooltip-text{
+        visibility: visible;
+    }
+
+}
+
+.fgo-servant-icon{
+    display: block;
+    margin: auto;
+    border-radius: 50%;
 }

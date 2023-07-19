@@ -11,8 +11,11 @@
     </section>
 
     <section class="fgo">
-        <div class="fgo-item" *ngFor="let icon of servantIcons">
-            <img src="{{icon}}"/>
+        <div class="fgo-item" *ngFor="let servant of servants">
+            <div class="fgo-servant">
+                <h3 class="fgo-tooltip-text">{{servant.name}}</h3>
+                <img class="fgo-servant-icon" src="{{servant.face}}"/>
+            </div>
         </div>
     </section>
 </section>

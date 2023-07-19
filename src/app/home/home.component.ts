@@ -13,7 +13,6 @@ export class HomeComponent {
   count = 0;
 
   servants: any;
-  servantIcons: any = [];
 
   constructor(private fgoService : FgoService){
 
@@ -22,11 +21,6 @@ export class HomeComponent {
   loadServants(){
     this.fgoService.getServants().subscribe((data) =>{
       this.servants = data;
-
-      this.servants.forEach((servant: any) => {
-        this.servantIcons.push(servant.face);
-      });
-
     });
   }
 
