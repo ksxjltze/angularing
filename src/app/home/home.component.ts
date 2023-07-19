@@ -9,5 +9,13 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  count = 0;
 
+  incrementCount(){
+    this.count++;
+  }
+
+  clear(){
+    this.count = 0;
+  }
 }

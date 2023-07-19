@@ -1,8 +1,13 @@
-.home{
+section{
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.home{
     justify-self: center;
+    flex-direction: column;
 
     padding:0;
     margin:0;
@@ -19,4 +24,15 @@
     font-weight: bold;
     font-size: 50px;
     color: #555;
+}
+
+.counter{
+    flex-direction: column;
+    gap: 10px;
+}
+
+.counter-buttons{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
